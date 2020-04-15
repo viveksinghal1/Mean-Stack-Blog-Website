@@ -12,13 +12,15 @@ router.post("/register", async function(req, res){
     try {
         let user1 = await User.findOne({ username: req.body.username });
         let user2 = await User.findOne({ email: req.body.email });
-        if (user1 || user2) {
-            return res.status(409).send("This username is already registered");
+        if (user1) {
+            res.status(409).send("This username is already registered");
+        } else if (user2) {
+            res.status(409).send("This email-id is already registered");
         } else {
             let encryptedPassword = cryptoJS.SHA256(req.body.password);
             let user = new User({
                 username: req.body.username,
-                password: req.body.password,
+                password: encryptedPassword,
                 email: req.body.email,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -29,29 +31,90 @@ router.post("/register", async function(req, res){
                 profileImg: req.body.profileImg,
                 job: req.body.job,
                 company: req.body.company,
-                since: req.body.since
+                since: req.body.since,
+                views: 0,
+                likes: 0
             });
             let registeredUser =  await user.save();
             try {
                 let payload = { subject: registeredUser._id };
                 let token = jwt.sign(payload, RSA_PRIVATE_KEY, { expiresIn: '86400s', algorithm: 'RS256' });
-                return res.status(201).json({
+                res.status(201).json({
                     idToken: token,
                     expiresIn: 86400
                 });
             } catch(err) {
                 console.log(err);
-                return res.status(401).send(err);
+                res.status(401).send(err);
             }
         }
     } catch(err) {
-        return res.status(500).send("Server Error");
+        console.log(err);
+        res.status(500).send("Server Error");
     }
 });
 
+// router.post("/register", function(req, res){
+//     User.findOne({ username: req.body.username }, function(err, user1){
+//         if (err) {
+//             console.log(err);
+//             res.status(500).send(err);
+//         } else if (user1) {
+//             res.status(409).send("This username is already registered");
+//         } else {
+//             User.findOne({ email: req.body.email }, function(err, user2){
+//                 if (err) {
+//                     console.log(err);
+//                     res.status(500).send(err);
+//                 } else if (user2) {
+//                     res.status(409).send("This email is already registered");
+//                 } else {
+//                     let encryptedPassword = cryptoJS.SHA256(req.body.password);
+//                     let user = new User({
+//                         username: req.body.username,
+//                         password: req.body.password,
+//                         email: req.body.email,
+//                         firstName: req.body.firstName,
+//                         lastName: req.body.lastName,
+//                         gender: req.body.gender,
+//                         college: req.body.college,
+//                         passingYear: req.body.passingYear,
+//                         course: req.body.course,
+//                         profileImg: req.body.profileImg,
+//                         job: req.body.job,
+//                         company: req.body.company,
+//                         since: req.body.since,
+//                         views: 0,
+//                         likes: 0
+//                     });
+
+//                     user.save(function(err, registeredUser) {
+//                         if (err) {
+//                             console.log(err);
+//                             res.status(500).send(err);
+//                         } else {
+//                             try {
+//                                 let payload = { subject: registeredUser._id };
+//                                 let token = jwt.sign(payload, RSA_PRIVATE_KEY, { expiresIn: '86400000', algorithm: 'RS256' });
+//                                 res.status(201).json({
+//                                     idToken: token,
+//                                     expiresIn: 86400000
+//                                 });
+//                             } catch(err) {
+//                                 console.log(err);
+//                                 res.status(401).send(err);
+//                             }
+//                         }
+//                     });
+//                 }
+//             });
+//         }
+//     });
+// });
+
 router.post("/login", async function(req, res){
     try {
-        let foundUser = User.findOne({username: req.body.username});
+        let foundUser = await User.findOne({username: req.body.username});
         if (!foundUser) {
             res.status(401).send("Invalid Username");
         } else {
