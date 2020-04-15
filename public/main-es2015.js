@@ -1637,8 +1637,10 @@ let AuthUserService = class AuthUserService {
     constructor(http, _router) {
         this.http = http;
         this._router = _router;
-        this._registerUrl = "http://localhost:3000/register";
-        this._loginUrl = "http://localhost:3000/login";
+        // header = "http://localhost:3000";
+        this.header = "";
+        this._registerUrl = this.header + "/register";
+        this._loginUrl = this.header + "/login";
     }
     registerUser(user) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();

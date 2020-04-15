@@ -2607,9 +2607,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _classCallCheck(this, AuthUserService);
 
         this.http = http;
-        this._router = _router;
-        this._registerUrl = "http://localhost:3000/register";
-        this._loginUrl = "http://localhost:3000/login";
+        this._router = _router; // header = "http://localhost:3000";
+
+        this.header = "";
+        this._registerUrl = this.header + "/register";
+        this._loginUrl = this.header + "/login";
       }
 
       _createClass(AuthUserService, [{
