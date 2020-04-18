@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const cryptoJS = require("crypto-js");
 const fs = require("fs");
 const User = require("../models/user");
+const middleware = require("../middleware/index");
 let router = express.Router();
 
 const RSA_PRIVATE_KEY = fs.readFileSync("./keys/private.key");
@@ -32,8 +33,8 @@ router.post("/register", async function(req, res){
                 job: req.body.job,
                 company: req.body.company,
                 since: req.body.since,
-                views: 0,
-                likes: 0
+                views: [],
+                likes: []
             });
             let registeredUser =  await user.save();
             try {
@@ -41,7 +42,8 @@ router.post("/register", async function(req, res){
                 let token = jwt.sign(payload, RSA_PRIVATE_KEY, { expiresIn: '86400s', algorithm: 'RS256' });
                 res.status(201).json({
                     idToken: token,
-                    expiresIn: 86400
+                    expiresIn: 86400,
+                    username: registeredUser.username
                 });
             } catch(err) {
                 console.log(err);
@@ -127,15 +129,29 @@ router.post("/login", async function(req, res){
                     let token = jwt.sign(payload, RSA_PRIVATE_KEY, { expiresIn: '86400s', algorithm: 'RS256' });
                     res.status(200).json({
                         idToken: token,
-                        expiresIn: 86400
+                        expiresIn: 86400,
+                        username: foundUser.username
                     });
                 } catch(err) {
-                    res.status(401).send(err);
+                    res.status(401).send("Error in saving in the DB");
                 }
             }
         }
     } catch(err) {
         return res.status(500).send("Server Error");
+    }
+});
+
+router.get('/users/:username', middleware.verifyToken, async function(req, res){
+    try {
+        let user = User.findOne({username: req.params.username});
+        if (!user) {
+            res.status(401).send("Non-Authenticated");
+        } else {
+            res.status(200).send(user);
+        }
+    } catch(err) {
+        res.status(500).send("Server Error");
     }
 });
 

@@ -13,9 +13,19 @@ const userSchema = mongoose.Schema({
     profileImg: String,
     job: String,
     company: String,
-    since: Date,
-    views: Number,
-    likes: Number,
+    since: String,
+    views: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
     followers: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -8,6 +8,7 @@ const path = require("path");
 const app = express();
 
 const authRoutes = require("./routes/auth");
+const articleRoutes = require("./routes/articles");
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/articles", articleRoutes);
 app.use("/", authRoutes);
 
 app.get("*", (req, res)=>{
