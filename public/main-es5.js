@@ -2844,9 +2844,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _classCallCheck(this, AuthUserService);
 
         this.http = http;
-        this._router = _router;
-        this.header = "http://localhost:3000"; // header = "";
+        this._router = _router; // header = "http://localhost:3000";
 
+        this.header = "";
         this._registerUrl = this.header + "/register";
         this._loginUrl = this.header + "/login";
       }
@@ -2986,12 +2986,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./node_modules/rxjs/_esm2015/index.js");
 
     var BlogPostService = /*#__PURE__*/function () {
-      // header = "";
       function BlogPostService(http) {
         _classCallCheck(this, BlogPostService);
 
-        this.http = http;
-        this.header = "http://localhost:3000";
+        this.http = http; // header = "http://localhost:3000";
+
+        this.header = "";
       }
 
       _createClass(BlogPostService, [{

@@ -1774,8 +1774,8 @@ let AuthUserService = class AuthUserService {
     constructor(http, _router) {
         this.http = http;
         this._router = _router;
-        this.header = "http://localhost:3000";
-        // header = "";
+        // header = "http://localhost:3000";
+        this.header = "";
         this._registerUrl = this.header + "/register";
         this._loginUrl = this.header + "/login";
     }
@@ -1861,10 +1861,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let BlogPostService = class BlogPostService {
-    // header = "";
     constructor(http) {
         this.http = http;
-        this.header = "http://localhost:3000";
+        // header = "http://localhost:3000";
+        this.header = "";
     }
     postArticle(article) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
