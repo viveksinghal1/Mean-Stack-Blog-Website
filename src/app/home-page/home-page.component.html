@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row justify-content-around">
+        <div class="col-md-3 col-xl-2 mt-5">
+            <div class="post-options"></div>
+        </div>
+        <div class="col-12 col-md-7 col-xl-8 mt-md-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="write-article">
+                        <div *ngIf="_authUserService.isLoggedIn()">
+                            <i class="fa fa-user-circle"></i><a class="d-inline ml-2" routerLink="/articles">{{username}}</a>
+                        </div>
+                        <h5 (click)="addArticle()">Write your article</h5>
+                    </div>
+                    <hr>
+                </div>            
+            </div>
+            <app-articles-list></app-articles-list>
+        </div>
+    </div>
+</div>

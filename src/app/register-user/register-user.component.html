@@ -1,0 +1,159 @@
+<div class="container" style="margin-top: 5vh;">
+    <div class="row justify-content-center">
+        <div class="col-md-7 px-4">
+            <div class="header">
+                <h5>Register Yourself</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 4rem;">
+        <div class="col-md-7">
+            <div class="alert alert-danger" *ngIf = "errorMsg">
+                {{errorMsg}}
+            </div>
+            <div class="alert alert-success" *ngIf = "successMsg">
+                {{successMsg}}
+            </div>
+        </div>
+        <div class="col-md-8" *ngIf="!errorMsg && !successMsg">
+            <ul class="progressbar mx-auto">
+                <li #firstProgress class="progress-active">User Info</li>
+                <li #secondProgress class="">Personal Info</li>
+                <li #thirdProgress class="">Qualification/Job Info</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-4 justify-content-center">
+        <div class="col-md-6">
+            <div class="card" *ngIf="!submitted3 || !allFieldsValid3">
+                <div class="card-body card-shadow">
+                    <form [formGroup]="regisForm1" (ngSubmit)="onSubmitOne()" *ngIf="!submitted1 || !allFieldsValid1">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control rounded-0 input-control-shadow"
+                            (focus)="resetOne()" formControlName="username" [class.is-invalid]="isFieldValidOne('username')">
+                            <small class="form-text text-muted">*username must be unique</small>
+                            <small *ngIf="isFieldValidOne('username')"
+                                 class="text-danger">{{getErrorMsgOne('username', 5)}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input type="email" class="form-control rounded-0 input-control-shadow"
+                            (focus)="resetOne()" [class.is-invalid]="isFieldValidOne('email')" formControlName="email">
+                            <small class="form-text text-muted">*provide e-mail in case you forget password</small>
+                            <small class="text-danger" *ngIf="isFieldValidOne('email')">{{getErrorMsgOne('email')}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control rounded-0 input-control-shadow"
+                            (focus)="resetOne()" [class.is-invalid]="isFieldValidOne('password')" formControlName="password">
+                            <small class="form-text text-muted">*password must be min 8 characters long</small>
+                            <small *ngIf="isFieldValidOne('password')"
+                                class="text-danger">{{getErrorMsgOne('password', 8)}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" class="form-control rounded-0 input-control-shadow"
+                                (focus)="resetOne()" formControlName="confirmPassword"
+                                [class.is-invalid]="regisForm1.errors?.misMatch || isFieldValidOne('confirmPassword')">
+                            <small class="text-danger" 
+                                *ngIf="regisForm1.errors?.misMatch || isFieldValidOne('confirmPassword')">passwords do not match</small>
+                        </div>
+                        <button class="btn btn-primary float-right" type="submit">Next</button>
+                    </form>
+                    <form [formGroup]="regisForm2" (ngSubmit)="onSubmitTwo()" *ngIf="submitted1 && regisForm1.valid && (!submitted2 || !allFieldsValid2)">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control rounded-0 input-control-shadow"
+                            (focus)="resetTwo()" formControlName="firstName" [class.is-invalid]="isFieldValidTwo('firstName')">
+                            <small *ngIf="isFieldValidTwo('firstName')"
+                                 class="text-danger">{{getErrorMsgTwo('firstName')}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control rounded-0 input-control-shadow"
+                            (focus)="resetTwo()" [class.is-invalid]="isFieldValidTwo('lastName')" formControlName="lastName">
+                            <small class="text-danger" *ngIf="isFieldValidTwo('lastName')">{{getErrorMsgTwo('lastName')}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select formControlName="gender" class="form-control rounded-0 input-control-shadow" 
+                                (focus)="resetTwo()" [class.is-invalid]="isFieldValidTwo('gender')">
+                                <option disabled value="">Select your gender</option>
+                                <option *ngFor="let gender of genders" value="{{gender}}">{{gender}}</option>
+                            </select>
+                            <small *ngIf="isFieldValidTwo('gender')"
+                                class="text-danger">{{getErrorMsgTwo('gender')}}</small>
+                        </div>
+                        <button class="btn btn-primary float-right" type="submit">Next</button>
+                    </form>
+                    <form [formGroup]="regisForm3" (ngSubmit)="onSubmitThree()" *ngIf="submitted2 && regisForm2.valid && (!submitted3 || !allFieldsValid3)">
+                        <div class="form-group">
+                            <label>Course</label>
+                            <select formControlName="course" class="form-control rounded-0 input-control-shadow" 
+                                (focus)="resetThree()" [class.is-invalid]="isFieldValidThree('course')">
+                                <option disabled value="">Select your highest qualification</option>
+                                <option *ngFor="let course of courses" value="{{course}}">{{course}}</option>
+                            </select>
+                            <small *ngIf="isFieldValidThree('course')"
+                                 class="text-danger">{{getErrorMsgThree('course')}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>College</label>
+                            <select formControlName="college" class="form-control rounded-0 input-control-shadow" 
+                                (focus)="resetThree()" [class.is-invalid]="isFieldValidThree('college')">
+                                <option disabled value="">Select your college</option>
+                                <option *ngFor="let college of colleges" value="{{college}}">{{college}}</option>
+                            </select>
+                            <small *ngIf="isFieldValidThree('college')"
+                                 class="text-danger">{{getErrorMsgThree('college')}}</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Passing Year</label>
+                            <select formControlName="passingYear" class="form-control rounded-0 input-control-shadow" 
+                                (focus)="resetThree()" [class.is-invalid]="isFieldValidThree('passingYear')">
+                                <option disabled value="">Select your passing Year</option>
+                                <option *ngFor="let passingYear of passingYears" value="{{passingYear}}">{{passingYear}}</option>
+                            </select>
+                            <small *ngIf="isFieldValidThree('passingYear')"
+                                 class="text-danger">{{getErrorMsgThree('passingYear')}}</small>
+                        </div>
+                        <div>
+                            <span class="text-muted mr-2"><i class="fas fa-plus"></i></span>
+                            <a href="#collapse" data-toggle="collapse" aria-expanded="false" aria-controls="collapse">Add Job Description</a>
+                            <small class="text-muted ml-2" >(Optional)</small>
+                        </div>
+                        <div class="collapse" id="collapse">
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input type="text" class="form-control rounded-0 input-control-shadow"
+                                 formControlName="job">
+                            </div>
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <input type="text" class="form-control rounded-0 input-control-shadow"
+                                 formControlName="company">
+                            </div>
+                            <div class="form-group">
+                                <label>Working in the company since: </label>
+                                <select formControlName="since" class="form-control rounded-0 input-control-shadow">
+                                    <option disabled value="">Select one of these</option>
+                                    <option *ngFor="let since of jobSinceYrs" value="{{passingYear}}">{{since}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary float-right" type="submit">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+            <div *ngIf="submitted3 && allFieldsValid3 && !errorMsg && !successMsg" style="height: 50vh;" class="d-flex flex-column justify-content-center align-items-center">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <strong class="text-muted mt-3">Loading...</strong>
+                <strong class="text-muted">Please wait</strong>
+            </div>
+        </div>
+    </div>
+</div>

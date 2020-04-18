@@ -1,0 +1,25 @@
+.card-shadow {
+    box-shadow: 1px 3px 10px rgba(180, 180, 180, 0.5), 2px 5px 15px rgba(180, 180, 180, 0.2)
+}
+
+.input-control-shadow {
+    box-shadow: 0px 0px 5px rgba(180, 180, 180, 0.5), 0px 0px 10px rgba(180, 180, 180, 0.2)
+}
+
+.header {
+    text-align: center;
+}
+
+h5 {
+    display: inline;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.85);
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.85);
+}
+
+a {
+    color: #007bff;
+}

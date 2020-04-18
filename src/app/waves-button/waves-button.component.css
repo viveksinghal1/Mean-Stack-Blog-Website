@@ -1,0 +1,37 @@
+button.waves-effect{
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+}
+
+span.waves-ripple {
+    position: absolute;
+    background-color: #f8f9fa;
+    /* background-color: rgb(244, 67, 54); */
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: waves-ripple 0.5s ease-in-out infinite;
+    pointer-events: none;
+    outline: none;
+}
+
+@keyframes waves-ripple {
+    0% {
+        width: 0px;
+        height: 0px;
+        opacity: 0.6;
+    }
+    100% {
+        width: 45%;
+        height: 15%;
+        opacity: 0;
+    }
+}

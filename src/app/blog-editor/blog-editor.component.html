@@ -1,0 +1,112 @@
+<div class="container mt-5">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-9 bg-light">
+        <div *ngIf="error" class="alert alert-danger" role="alert">
+          {{error}}
+        </div>
+        <form *ngIf="!submitted || !allFieldsValid || error" [formGroup]='editorForm' (ngSubmit)='onSubmit()'>
+          <div class="form-group">
+            <label><h5 class="text-secondary">Author</h5></label>
+            <input type="text" class="form-control" [value]="username" disabled>
+          </div>
+          <div class="form-group">
+            <label for=""><h5 class="text-secondary" [class.text-danger]="isFieldValid('title')">Title *</h5></label>
+            <input #title (focus)="reset()" spellcheck="false" type="text" class="form-control" formControlName="title">
+            <p class="text-danger mt-2" *ngIf="isFieldValid('title')">{{getErrorMsg('title', 10)}}</p>
+          </div>
+          <div class="form-group mt-4">
+            <label for=""><h5 class="text-secondary">Caption (optional)</h5></label>
+            <input spellcheck="false" type="text" class="form-control" formControlName='caption'>
+          </div>
+          <div class="form-group">
+            <label for=""><h5 class="text-secondary" [class.text-danger]="isFieldValid('category')">Category *</h5></label>
+            <select formControlName="category" (focus)="reset()" class="form-control">
+              <option value="" disabled>Select the category</option>
+              <option *ngFor="let category of categories" value="{{category}}">{{category}}</option>
+            </select>
+            <p class="text-danger mt-2" *ngIf="isFieldValid('category')">{{getErrorMsg('category')}}</p>
+          </div>
+          <div class="form-group mt-5">
+            <label for=""><h4 [class.text-danger]="isFieldValid('content')" class="text-secondary">Content *</h4></label>
+            <quill-editor spellcheck="false"
+              (onContentChanged)='maxlength($event)' (onSelectionChanged)='reset()' [styles]="editorStyle" formControlName='content'>
+              <div id="toolbar" quill-editor-toolbar style="border: none;">
+                <button tabindex="-1" class="ql-bold" data-toggle="tooltip"
+                  title="bold"></button>
+                <button tabindex="-1" class="ql-italic" data-toggle="tooltip"
+                  title="italic"></button>
+                <button tabindex="-1" class="ql-underline" data-toggle="tooltip"
+                  title="underline"></button>
+                <!-- Add subscript and superscript buttons -->
+                <button tabindex="-1" class="ql-script" value="sub" data-toggle="tooltip"
+                  title="sub"></button>
+                <button tabindex="-1" class="ql-script" value="super" data-toggle="tooltip"
+                  title="super"></button>
+                <select tabindex="-1" class="ql-color">
+                  <option tabindex="-1" value="red"></option>
+                  <option tabindex="-1" value="grey"></option>
+                  <option tabindex="-1" value="blue"></option>
+                  <option tabindex="-1" value="green"></option>
+                  <option tabindex="-1" value="teal"></option>
+                  <option tabindex="-1" value="#6c757d"></option>
+                  <option tabindex="-1" value="#212529"></option>
+                </select>
+                <select tabindex="-1" class="ql-background">
+                  <option tabindex="-1" value="white"></option>
+                  <option tabindex="-1" value="red"></option>
+                  <option tabindex="-1" value="grey"></option>
+                  <option tabindex="-1" value="#444444"></option>
+                  <option tabindex="-1" value="green"></option>
+                  <option tabindex="-1" value="teal"></option>
+                  <option tabindex="-1" value="darkgray"></option>
+                  <option tabindex="-1" value="lightblue"></option>
+                </select>
+                <button tabindex="-1" class="ql-blockquote" data-toggle="tooltip"
+                  title="blockquote"></button>
+                <button tabindex="-1" class="ql-code-block" data-toggle="tooltip"
+                  title="code-block"></button>
+                <button tabindex="-1" class="ql-align" value="" data-toggle="tooltip"
+                    title="align left"></button>
+                <button tabindex="-1" class="ql-align" value="center" data-toggle="tooltip"
+                    title="align center"></button>
+                <button tabindex="-1"class="ql-list" value="ordered" data-toggle="tooltip"
+                  title="number list"></button>
+                <button tabindex="-1" class="ql-list" value="bullet" data-toggle="tooltip"
+                  title="bullet list"></button>
+                <button tabindex="-1" class="ql-header" value="1" data-toggle="tooltip"
+                  title="heading 1"></button>
+                <button tabindex="-1" class="ql-header" value="2" data-toggle="tooltip"
+                  title="heading 2"></button>
+                <button tabindex="-1" class="ql-indent" value="-1" data-toggle="tooltip"
+                  title="tab backward"></button>
+                <button tabindex="-1" class="ql-indent" value="+1" data-toggle="tooltip"
+                  title="tab forward"></button>
+                <button tabindex="-1" class="ql-link" data-toggle="tooltip"
+                  title="select the text first or paste the link directly"></button>
+                <button tabindex="-1" class="ql-image" data-toggle="tooltip"
+                  title="image"></button>
+                <!-- <button id="divider-button"><i class="fa fa-minus"></i></button> -->
+              </div>
+            </quill-editor>
+            <p class="text-danger mt-2" *ngIf="isFieldValid('content')">{{getErrorMsg('content', 50)}}</p>
+          </div>
+          <button class="btn btn-primary btn-lg float-right" type="submit">Add Article</button>
+        </form>
+        <!-- <div *ngIf="editorForm.get('content').value!=null">{{editorLength}}</div> -->
+        <div *ngIf="submitted && allFieldsValid && !error && !success" style="height: 50vh;" class="d-flex flex-column justify-content-center align-items-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <strong class="text-muted mt-3">Loading...</strong>
+          <strong class="text-muted">Please wait</strong>
+        </div>
+      </div>
+      <!-- <div class="col-md-4 bg-light p-4">
+        <h3>Output</h3>
+        <quill-view [content]="editorContent" format="text" theme="snow">
+        </quill-view>
+      </div> -->
+    </div>
+  </div>
+  
+  <!-- <app-quill-custom></app-quill-custom> -->

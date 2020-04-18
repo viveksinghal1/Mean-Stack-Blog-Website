@@ -1,0 +1,180 @@
+header.masthead {
+  margin-bottom: 50px;
+  background: no-repeat 50%;
+  background-color: #6c757d;
+  background-attachment: scroll;
+  position: relative;
+  background-size: cover;
+}
+header.masthead .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #212529;
+  opacity: 0.5;
+}
+header.masthead .page-heading,
+header.masthead .post-heading,
+header.masthead .site-heading {
+  padding: 200px 0 150px;
+  color: #fff;
+}
+@media only screen and (min-width: 768px) {
+  header.masthead .page-heading,
+  header.masthead .post-heading,
+  header.masthead .site-heading {
+    padding: 200px 0;
+  }
+}
+header.masthead .page-heading,
+header.masthead .site-heading {
+  text-align: center;
+}
+header.masthead .page-heading h1,
+header.masthead .site-heading h1 {
+  font-size: 50px;
+  margin-top: 0;
+}
+header.masthead .page-heading .subheading,
+header.masthead .site-heading .subheading {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.1;
+  display: block;
+  margin: 10px 0 0;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+@media only screen and (min-width: 768px) {
+  header.masthead .page-heading h1,
+  header.masthead .site-heading h1 {
+    font-size: 80px;
+  }
+}
+header.masthead .post-heading h1 {
+  font-size: 35px;
+}
+header.masthead .post-heading .meta,
+header.masthead .post-heading .subheading {
+  line-height: 1.1;
+  display: block;
+}
+header.masthead .post-heading .subheading {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 10px 0 30px;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+header.masthead .post-heading .meta {
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  font-family: Lora, Times New Roman, serif;
+}
+header.masthead .post-heading .meta a {
+  color: #fff;
+}
+@media only screen and (min-width: 768px) {
+  header.masthead .post-heading h1 {
+    font-size: 55px;
+  }
+  header.masthead .post-heading .subheading {
+    font-size: 30px;
+  }
+}
+
+.floating-label-form-group {
+  font-size: 14px;
+  position: relative;
+  margin-bottom: 0;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #dee2e6;
+}
+.floating-label-form-group input,
+.floating-label-form-group textarea {
+  font-size: 1.5em;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  resize: none;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none !important;
+  font-family: Lora, Times New Roman, serif;
+}
+.floating-label-form-group input::-webkit-input-pflaceholder,
+.floating-label-form-group textarea::-webkit-input-placeholder {
+  color: #6c757d;
+  font-family: Lora, Times New Roman, serif;
+}
+.floating-label-form-group label {
+  font-size: 0.85em;
+  line-height: 1.764705882em;
+  position: relative;
+  z-index: 0;
+  top: 2em;
+  display: block;
+  margin: 0;
+  transition: top 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+.floating-label-form-group .help-block {
+  margin: 15px 0;
+}
+.floating-label-form-group-with-value label {
+  top: 0;
+  opacity: 1;
+}
+.floating-label-form-group-with-focus label {
+  color: #0085a1;
+}
+form .form-group:first-child .floating-label-form-group {
+  border-top: 1px solid #dee2e6;
+}
+.form-text {
+  font-size: 16px;
+}
+
+.post-options {
+  position: fixed;
+  width: 16.67777%;
+  left: inherit;
+  top: inherit;
+  background-color: aqua;
+  height: 500px;
+}
+
+@media (max-width: 767.98px) {
+    .post-options {
+        display: none;
+    }
+}
+
+.write-article {
+  border: 0.04rem solid rgba(180, 180, 180, 0.8);
+  padding-bottom: 1.5rem;
+  padding-left: 1.4rem;
+  padding-right: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.3rem;
+  background-color: white;
+  box-shadow: 0 7px 15px rgba(180, 180, 180, 0.4), 0 2px 7px rgba(180, 180, 180, 0.7);
+  transition: all 0.3s ease-out;
+  height: 7rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  color: #6c757d;
+  font-family: Lora, Times New Roman, serif;
+  font-weight: 600;
+  border-color: rgba(180, 180, 180, 0.4);
+  opacity: 0.9;
+  cursor: text;
+}
+
+.write-article h5 {
+  margin-top: 0.1rem;
+  font-weight: 600;
+  opacity: 0.6;
+}

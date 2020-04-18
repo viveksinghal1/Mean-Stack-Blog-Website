@@ -1,0 +1,3 @@
+<button #waveEffectButton (click)="waveEffect($event)" class="waves-effect float-right" type="submit">Next
+    <span *ngIf="buttonClicked" [ngStyle]="spanStyle()" class="waves-ripple"></span>
+</button>

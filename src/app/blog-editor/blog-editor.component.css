@@ -1,0 +1,66 @@
+/* quill-editor hr {
+    border: none;
+    color: #111;
+    letter-spacing: 1em;
+    text-align: center;
+}
+quill-editor hr:before {
+    content: '...';
+} */
+
+* {
+    font-family: Lora, 'Times New Roman', serif;
+    letter-spacing: 0.8px;
+    color: #333;
+}
+
+#toolbar button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(360, 360, 360, .2);
+    display: inline-block;
+    font-size: 1rem;
+    padding: 0.2rem;
+    height: 1.9rem;
+    width: 1.9rem;
+    text-align: center;
+  }
+
+  input, input:focus, input:hover, select, select:focus, select:hover {
+      border: 0rem solid rgba(180, 180, 180, 0.3);
+      box-shadow: 0 4px 10px rgba(180, 180, 180, 0.4), 0 2px 2px rgba(180, 180, 180, 0.7);
+      outline: none;
+      height: 3.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      font-size: 1.15rem;
+      color: #666;
+      /* font-family: cursive; */
+      letter-spacing: 0.8px;
+  }
+
+  label h5, h4 {
+      font-family: cursive;
+  }
+
+  button:active, button:focus {
+    outline: none;
+  }
+
+  #toolbar {
+      text-align: center;
+      background-color: rgb(26, 24, 24);
+      color: white;
+  }
+
+  button.btn.btn-primary {
+      color: rgba(360, 360, 360, 0.9);
+      box-shadow: 2px 2px 5px rgba(150, 150, 150, 1), 3px 3px 5px rgba(180, 180, 180, 0.3);
+      transition: all 0.7s ease-out;
+  }
+
+  button.btn.btn-primary:hover, button.btn.btn-primary:active {
+    transform: translateY(-8%);
+    color: rgba(360, 360, 360, 0.9);
+}
