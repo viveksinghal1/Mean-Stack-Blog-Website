@@ -142,6 +142,32 @@ router.post("/login", async function(req, res){
     }
 });
 
+router.get('/users/checkusername', async function(req, res){
+    try {
+        let user = await User.findOne({username: req.query.username});
+        if (user===null) {
+            res.status(200).send("ok");
+        } else {
+            res.status(400).send("username exits");
+        }
+    } catch(err) {
+        res.status(500).send("Server Error");
+    }
+});
+
+router.get('/users/checkemail', async function(req, res){
+    try {
+        let user = await User.findOne({email: req.query.email});
+        if (user===null) {
+            res.status(200).send("ok");
+        } else {
+            res.status(400).send("email exits");
+        }
+    } catch(err) {
+        res.status(500).send("Server Error");
+    }
+});
+
 router.get('/users/:username', middleware.verifyToken, async function(req, res){
     try {
         let user = User.findOne({username: req.params.username});
