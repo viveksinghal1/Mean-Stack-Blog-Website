@@ -31,7 +31,8 @@
                         <div class="form-group">
                             <label>Username</label>
                             <input type="text" class="form-control rounded-0 input-control-shadow"
-                            (focus)="resetOne()" formControlName="username" [class.is-invalid]="isFieldValidOne('username')">
+                            (focus)="resetOne()" formControlName="username" [class.is-invalid]="isFieldValidOne('username')"
+                            [class.is-valid]="regisForm1.get('username').touched && !isFieldValidOne('username')">
                             <small class="form-text text-muted">*username must be unique</small>
                             <small *ngIf="isFieldValidOne('username')"
                                  class="text-danger">{{getErrorMsgOne('username', 5)}}</small>
@@ -39,7 +40,8 @@
                         <div class="form-group">
                             <label>E-mail</label>
                             <input type="email" class="form-control rounded-0 input-control-shadow"
-                            (focus)="resetOne()" [class.is-invalid]="isFieldValidOne('email')" formControlName="email">
+                            (focus)="resetOne()" [class.is-invalid]="isFieldValidOne('email')" formControlName="email"
+                            [class.is-valid]="regisForm1.get('email').touched && !isFieldValidOne('email')">
                             <small class="form-text text-muted">*provide e-mail in case you forget password</small>
                             <small class="text-danger" *ngIf="isFieldValidOne('email')">{{getErrorMsgOne('email')}}</small>
                         </div>

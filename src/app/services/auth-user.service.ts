@@ -1,22 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { User } from '../models/user.model';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthUserService {
 
-  header = "http://localhost:3000";
-  
-  // header = "";
-
-  private _registerUrl = this.header +  "/register";
-  private _loginUrl = this.header + "/login";
+  private _registerUrl = environment.host +  "/register";
+  private _loginUrl = environment.host + "/login";
 
   constructor(private http: HttpClient, private _router: Router) { }
 
@@ -28,11 +24,22 @@ export class AuthUserService {
   }
 
   loginUser(user) {
+    console.log()
     let headers = new HttpHeaders();
     headers.append("Content-Type", "application/json");
     return this.http.post<any>(this._loginUrl, user, {headers})
       .pipe(catchError(this.errorHandler));
 
+  }
+
+  validateUsername(username): Observable<any> {
+    return this.http.get<any>(environment.host+"/users/checkusername/?username="+username)
+    .pipe(catchError(this.errorHandler));
+  }
+
+  validateEmail(email): Observable<any> {
+    return this.http.get<any>(environment.host+"/users/checkemail/?email="+email)
+    .pipe(catchError(this.errorHandler));
   }
 
   isLoggedIn() {

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, Validators, Form } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { forbiddenNameValidator, allowedNameValidator } from '../validators/username.validator';
 import { PasswordValidator } from '../validators/password.validator';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from '../services/data.service';
 import { AuthUserService } from '../services/auth-user.service';
 import * as moment from 'moment';
@@ -74,6 +74,12 @@ export class RegisterUserComponent implements OnInit {
     }
     else if (element.touched && errors.minlength) {
       result = "*" + field + " must be at least " + minlength + " characters long";
+    }
+    else if (element.hasError('isUsernameUnique')) {
+      result = "username already used. try another username.";
+    }
+    else if (element.hasError('isEmailUnique')) {
+      result = "email already used. try another email.";
     }
     return result;
   }
@@ -181,10 +187,10 @@ export class RegisterUserComponent implements OnInit {
           res => {
             this.successMsg = "Successfully Registered";
             const expiresAt = moment().add(res.expiresIn, 'second');
-            localStorage.setItem('token', res.idToken);
-            localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
-            localStorage.setItem('username', res.username);
-            this._router.navigate(['/articles']);
+            // localStorage.setItem('token', res.idToken);
+            // localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+            // localStorage.setItem('username', res.username);
+            this._router.navigate(['/login']);
           },
           err => {
             this.errorMsg = err.error;
@@ -192,6 +198,36 @@ export class RegisterUserComponent implements OnInit {
           }
         );
     }
+  }
+
+  validateUsername(control: FormControl) {
+    const q = new Promise((resolve, reject) => {
+      setTimeout((res) => {
+        this._authUserService.validateUsername(control.value).subscribe(() => {
+          resolve(null);
+        }, (err) => { 
+          if (err.status===200)
+            resolve(null);
+          else
+            resolve({ 'isUsernameUnique': true }); });
+      }, 1000);
+    });
+    return q;
+  }
+
+  validateEmail(control: FormControl) {
+    const q = new Promise((resolve, reject) => {
+      setTimeout((res) => {
+        this._authUserService.validateEmail(control.value).subscribe(() => {
+          resolve(null);
+        }, (err) => { 
+          if (err.status===200)
+            resolve(null);
+          else
+            resolve({ 'isEmailUnique': true }); });
+      }, 1000);
+    });
+    return q;
   }
 
   progress(btn1: ElementRef, btn2: ElementRef) {
@@ -204,8 +240,9 @@ export class RegisterUserComponent implements OnInit {
 
   ngOnInit() {
     this.regisForm1 = this.fb.group({
-      username: [null, [Validators.required, Validators.minLength(5), forbiddenNameValidator(/admin|password/), allowedNameValidator(/^[a-zA-Z]\w+$/)]],
-      email: [null, [Validators.required, Validators.email]],
+      username: [null, [Validators.required, Validators.minLength(5), forbiddenNameValidator(/admin|password/),
+         allowedNameValidator(/^[a-zA-Z]\w+$/)], this.validateUsername.bind(this)],
+      email: [null, [Validators.required, Validators.email], this.validateEmail.bind(this)],
       password: [null, [Validators.required, Validators.minLength(8)]],
       confirmPassword: [null, Validators.required]
     }, {validators: PasswordValidator});
