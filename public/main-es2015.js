@@ -1813,8 +1813,10 @@ let AuthUserService = class AuthUserService {
     constructor(http, _router) {
         this.http = http;
         this._router = _router;
-        this._registerUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].host + "/register";
-        this._loginUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].host + "/login";
+        // header = "http://localhost:3000";
+        this.header = "";
+        this._registerUrl = this.header + "/register";
+        this._loginUrl = this.header + "/login";
     }
     registerUser(user) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
@@ -1830,7 +1832,7 @@ let AuthUserService = class AuthUserService {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.errorHandler));
     }
     validateUsername(username) {
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].host + "/users/checkusername/?username=" + username)
+        return this.http.get(this.header + "/users/checkusername/?username=" + username)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.errorHandler));
     }
     validateEmail(email) {
@@ -1901,8 +1903,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
-
 
 
 
@@ -1911,15 +1911,17 @@ __webpack_require__.r(__webpack_exports__);
 let BlogPostService = class BlogPostService {
     constructor(http) {
         this.http = http;
+        // header = "http://localhost:3000";
+        this.header = "";
     }
     postArticle(article) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append("Content-Type", "application/json");
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles", article, { headers })
+        return this.http.post(this.header + "/articles", article, { headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     getArticles() {
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles")
+        return this.http.get(this.header + "/articles")
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     errorHandler(error) {
@@ -2274,11 +2276,22 @@ WildCardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
 
 const environment = {
-    production: true,
-    host: ""
+    production: false,
+    host: "http://localhost:3000"
 };
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
 
 /***/ }),
