@@ -7,7 +7,7 @@ const User = require("../models/user");
 // GET ROUTE
 router.get('/', async function(req, res){
     try {
-        let allArticles = await Article.find({});
+        let allArticles = await (await Article.find({})).reverse();
         res.status(200).send(allArticles);
     } catch(err) {
         console.log(err);
@@ -184,7 +184,7 @@ router.post("/:slug/nondislike", middleware.verifyToken, async function(req, res
                 article.dislikes.pull(req.userId);
                 await article.save();
                 res.status(200).send("ok");
-                console.log(article.dislikes);
+                // console.log(article.dislikes);
             } else {
                 res.status(200).send("ok");
                 console.log(article.dislikes);
