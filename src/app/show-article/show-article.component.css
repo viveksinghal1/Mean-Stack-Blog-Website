@@ -1,6 +1,13 @@
 @import '~quill/dist/quill.core.css';
 @import '~quill/dist/quill.bubble.css';
 @import '~quill/dist/quill.snow.css';
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Lobster&family=Permanent+Marker&display=swap');
+
+* {
+  font-family: Lora, 'Times New Roman', serif;
+  letter-spacing: 0.8px;
+  color: #333;
+}
 
 header.masthead {
     margin-bottom: 50px;
@@ -9,15 +16,7 @@ header.masthead {
     background-attachment: scroll;
     position: relative;
     background-size: cover;
-  }
-  header.masthead .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #212529;
-    opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.15);
   }
   header.masthead .page-heading,
   header.masthead .post-heading,
@@ -47,7 +46,7 @@ header.masthead {
     font-weight: 300;
     line-height: 1.1;
     display: block;
-    margin: 10px 0 0;
+    margin: 10px 0 0;;
     font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
   }
   @media only screen and (min-width: 768px) {
@@ -66,9 +65,12 @@ header.masthead {
   }
   header.masthead .post-heading .subheading {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 400;
     margin: 10px 0 30px;
-    font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: #6c757d;
+    font-family: monospace;
+    letter-spacing: 0.5px;
+    
   }
   header.masthead .post-heading .meta {
     font-size: 20px;
@@ -77,7 +79,7 @@ header.masthead {
     font-family: Lora, Times New Roman, serif;
   }
   header.masthead .post-heading .meta a {
-    color: #fff;
+    color: #6c757d;
   }
   @media only screen and (min-width: 768px) {
     header.masthead .post-heading h1 {
@@ -125,4 +127,112 @@ header.masthead {
   .ql-snow .ql-editor h1 {
     font-size: 5rem;
     font-weight: 600;
+}
+
+.quill-container {
+  background-color: white;
+  padding: 2rem 3rem 3rem 3rem;
+  box-shadow: 3px 6px 5px rgba(0, 0, 0, 0.1),
+  10px 14px 7px rgba(0, 0, 0, 0.05);
+}
+
+/* .button2::before {
+  content: '\f004';
+  font-family: FontAwesome;
+  display: inline;
+} */
+
+.cstmbtn1 {
+  letter-spacing: 2px;
+  font-weight: 600;
+  outline: none;
+  font-family: 'Permanent Marker','Lobster', cursive;
+}
+
+.cstmbtn2 {
+  letter-spacing: 0.8px;
+  font-weight: 800;
+  outline: none;
+  /* text-transform: lowercase; */
+  font-family: 'Permanent Marker', 'Lobster', cursive;
+}
+
+.views {
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.bottom-sheet {
+  position: fixed;
+  bottom: -100%;
+  left: 27.5vw;
+  right: 27.5vw;
+  width: 45vw;
+  background-color: white;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0px 0px 15px 5px rgba(200, 200, 200, 0.15);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  transition: all 0.9s ease-out;
+}
+
+@media (max-width: 575.98px) {
+  .bottom-sheet {
+    width: 90vw;
+    left: 3vw;
+    right: 5vw;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .bottom-sheet {
+    width: 70vw;
+    left: 14vw;
+    right: 16vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .bottom-sheet {
+    width: 60vw;
+    left: 20vw;
+    right: 20vw;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .bottom-sheet {
+    width: 54vw;
+    left: 23vw;
+    right: 23vw;
+  }
+}
+
+.bottom-sheet .row:nth-child(1) .col-12 {
+  background-color: #007bff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 42px 10px 42px;
+}
+
+.bottom-sheet .row:nth-child(2) {
+  padding: 16px 32px 16px 32px;
+  max-height: 30vh;
+}
+
+.bottom-sheet .row:nth-child(2) .col-12 {
+  background-color: rgba(200, 200, 200, .15);
+}
+
+.bottom-sheet .row:nth-child(2) .col-12:nth-child(1n):not(.nohover):hover {
+  background-color: rgb(228, 162, 88);
+}
+
+.bottom-sheet .row:nth-child(2) .col-12:nth-child(2n):hover {
+  background-color: #007bff;
+}
+
+.bottom-sheet .row:nth-child(2) .col-12:hover .media .media-body strong {
+  color: white;
 }

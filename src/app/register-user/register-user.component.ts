@@ -111,7 +111,7 @@ export class RegisterUserComponent implements OnInit {
       });
 
       this.allFieldsValid1 = true;
-      console.log(this.regisForm1.value);
+      // console.log(this.regisForm1.value);
       this.progress(this.firstProgress, this.secondProgress);
     }
   }
@@ -151,7 +151,7 @@ export class RegisterUserComponent implements OnInit {
       });
 
       this.allFieldsValid2 = true;
-      console.log(this.regisForm2.value);
+      // console.log(this.regisForm2.value);
       this.progress(this.secondProgress, this.thirdProgress);
     }
   }
@@ -181,7 +181,7 @@ export class RegisterUserComponent implements OnInit {
     this.submitted3 = true;
     if (this.regisForm3.valid) {
       this.allFieldsValid3 = true;
-      console.log(this.regisForm3.value);
+      // console.log(this.regisForm3.value);
       this.progress(this.thirdProgress, this.thirdProgress);
       this._authUserService.registerUser(this.regisForm3.value).subscribe(
           res => {
@@ -195,6 +195,7 @@ export class RegisterUserComponent implements OnInit {
           err => {
             this.errorMsg = err.error;
             console.log(this.errorMsg);
+            this._router.navigate(['/register']);
           }
         );
     }

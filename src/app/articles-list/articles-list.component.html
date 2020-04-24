@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12 mt-3" *ngFor="let article of allArticles">
         <div class="post-preview">
-            <a routerLink="/articles">
+            <a (click)="getArticle(article.slug)" style="cursor: pointer;">
                 <h2 class="post-title">{{article.title}}</h2>
                 <h3 class="post-subtitle" *ngIf="article.caption">{{article.caption.toLowerCase()}}</h3>
             </a>

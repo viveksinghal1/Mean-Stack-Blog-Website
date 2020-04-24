@@ -139,7 +139,7 @@ form .form-group:first-child .floating-label-form-group {
 
 .post-options {
   position: fixed;
-  width: 16.67777%;
+  width: 18%;
   left: inherit;
   top: inherit;
   background-color: aqua;
@@ -150,6 +150,12 @@ form .form-group:first-child .floating-label-form-group {
     .post-options {
         display: none;
     }
+}
+
+@media (min-width: 1200px) {
+  .post-options {
+    width: 14%;
+  }
 }
 
 .write-article {

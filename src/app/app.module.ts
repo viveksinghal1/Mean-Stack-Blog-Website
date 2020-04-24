@@ -26,6 +26,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     AppRoutingModule,
     QuillModule.forRoot({
       modules: {
+        syntax: true,
         toolbar: '#toolbar'
       },
       placeholder: '   Tell your story'

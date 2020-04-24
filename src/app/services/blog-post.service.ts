@@ -25,6 +25,31 @@ export class BlogPostService {
     .pipe(catchError(this.errorHandler));
   }
 
+  getArticle(slug): Observable<any> {
+    return this.http.get<any>(environment.host+"/articles/"+slug)
+    .pipe(catchError(this.errorHandler))
+  }
+
+  likeArticle(slug) {
+    return this.http.post(environment.host + "/articles/"+slug+"/like", {})
+    .pipe(catchError(this.errorHandler));
+  }
+
+  nonlikeArticle(slug) {
+    return this.http.post(environment.host + "/articles/"+slug+"/nonlike", {})
+    .pipe(catchError(this.errorHandler));
+  }
+
+  dislikeArticle(slug) {
+    return this.http.post(environment.host + "/articles/"+slug+"/dislike", {})
+    .pipe(catchError(this.errorHandler));
+  }
+
+  nondislikeArticle(slug) {
+    return this.http.post(environment.host + "/articles/"+slug+"/nondislike", {})
+    .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

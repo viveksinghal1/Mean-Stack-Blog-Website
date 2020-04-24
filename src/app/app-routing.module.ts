@@ -22,7 +22,9 @@ const routes: Routes = [
     canActivate: [AuthUserGuard]
   },
   {
-    path: 'articles/show/:slug', component: ShowArticleComponent
+    path: 'articles/:slug',
+     component: ShowArticleComponent,
+     canActivate: [AuthUserGuard]
   },
   {
     path: 'login', component: LoginUserComponent
