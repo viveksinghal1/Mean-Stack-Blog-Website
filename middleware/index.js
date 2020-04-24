@@ -19,7 +19,6 @@ middleware.verifyToken = async function(req, res, next) {
 
     try {
         let payload = await jwt.verify(token, RSA_PUBLIC_KEY, {algorithms: 'RS256'});
-        console.log(payload.subject);
         req.userId = payload.subject;
         let user = await User.findById(payload.subject);
         if (user)
