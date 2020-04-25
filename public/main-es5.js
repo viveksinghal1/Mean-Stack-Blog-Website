@@ -1231,6 +1231,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _guards_login_guard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! ./guards/login.guard */
     "./src/app/guards/login.guard.ts");
+    /* harmony import */
+
+
+    var _resolvers_article_list_resolve__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    /*! ./resolvers/article-list.resolve */
+    "./src/app/resolvers/article-list.resolve.ts");
 
     var routes = [{
       path: '',
@@ -1238,7 +1244,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       pathMatch: 'full'
     }, {
       path: 'articles',
-      component: _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_5__["HomePageComponent"]
+      component: _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_5__["HomePageComponent"],
+      resolve: {
+        allArticles: _resolvers_article_list_resolve__WEBPACK_IMPORTED_MODULE_11__["ArticleListResolve"]
+      }
     }, {
       path: 'articles/new',
       component: _blog_editor_blog_editor_component__WEBPACK_IMPORTED_MODULE_3__["BlogEditorComponent"],
@@ -1528,11 +1537,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./node_modules/@angular/router/fesm2015/router.js");
 
     var ArticlesListComponent = /*#__PURE__*/function () {
-      function ArticlesListComponent(_blogPostService, _router) {
+      function ArticlesListComponent(_blogPostService, _router, _route) {
         _classCallCheck(this, ArticlesListComponent);
 
         this._blogPostService = _blogPostService;
         this._router = _router;
+        this._route = _route;
         this.allArticles = [];
         this.errorMsg = "";
       }
@@ -1545,23 +1555,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngOnInit",
         value: function ngOnInit() {
-          console.log("component initialised");
+          console.log("component initialised"); // this._blogPostService.getArticles().subscribe(
+          //   items => {
+          //     this.allArticles = items;
+          //     console.log("data received");
+          //   },
+          //   err => this.errorMsg = err.error 
+          // );
+
+          this.allArticles = this._route.snapshot.data.allArticles;
         }
       }, {
         key: "ngAfterContentChecked",
         value: function ngAfterContentChecked() {}
       }, {
         key: "ngAfterViewInit",
-        value: function ngAfterViewInit() {
-          var _this = this;
-
-          this._blogPostService.getArticles().subscribe(function (items) {
-            _this.allArticles = items;
-            console.log("data received");
-          }, function (err) {
-            return _this.errorMsg = err.error;
-          });
-        }
+        value: function ngAfterViewInit() {}
+      }, {
+        key: "ngOnChanges",
+        value: function ngOnChanges() {}
       }]);
 
       return ArticlesListComponent;
@@ -1572,6 +1584,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _services_blog_post_service__WEBPACK_IMPORTED_MODULE_2__["BlogPostService"]
       }, {
         type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]
       }];
     };
 
@@ -1745,7 +1759,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function onSubmit(form) {
-          var _this2 = this;
+          var _this = this;
 
           // this.editorContent = this.editorForm.get("editor").value;
           // console.log(this.editorForm.get("editor").value);
@@ -1759,16 +1773,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             // console.log(this.editorForm.valid);
 
             this._blogPostService.postArticle(this.editorForm.value).subscribe(function (res) {
-              console.log("success"), _this2.success = "Successfully Uploaded";
+              console.log("success"), _this.success = "Successfully Uploaded";
 
-              _this2._router.navigate(['/articles', res.slug]);
+              _this._router.navigate(['/articles', res.slug]);
             }, function (err) {
               console.log(err);
-              _this2.error = err.error;
+              _this.error = err.error;
 
-              _this2.editorForm.markAsPristine();
+              _this.editorForm.markAsPristine();
 
-              _this2.editorForm.markAsUntouched();
+              _this.editorForm.markAsUntouched();
             });
           } // else {
           //   console.log('submit nhi ho paya');
@@ -2466,7 +2480,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "login",
         value: function login() {
-          var _this3 = this;
+          var _this2 = this;
 
           this.submitted = true;
 
@@ -2474,18 +2488,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.allFieldsValid = true;
 
             this._authUserService.loginUser(this.form.value).subscribe(function (res) {
-              _this3.success = "logged in";
+              _this2.success = "logged in";
               var expiresAt = moment__WEBPACK_IMPORTED_MODULE_4__().add(res.expiresIn, 'second');
               localStorage.setItem('token', res.idToken);
               localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
               localStorage.setItem('username', res.username);
 
-              _this3._router.navigate(['/articles']);
+              _this2._router.navigate(['/articles']);
             }, function (err) {
-              _this3.error = err.error;
+              _this2.error = err.error;
               console.log(err);
 
-              _this3.reset();
+              _this2.reset();
             });
           }
         }
@@ -2893,7 +2907,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmitThree",
         value: function onSubmitThree(form) {
-          var _this4 = this;
+          var _this3 = this;
 
           this.submitted3 = true;
 
@@ -2903,28 +2917,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.progress(this.thirdProgress, this.thirdProgress);
 
             this._authUserService.registerUser(this.regisForm3.value).subscribe(function (res) {
-              _this4.successMsg = "Successfully Registered";
+              _this3.successMsg = "Successfully Registered";
               var expiresAt = moment__WEBPACK_IMPORTED_MODULE_7__().add(res.expiresIn, 'second'); // localStorage.setItem('token', res.idToken);
               // localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
               // localStorage.setItem('username', res.username);
 
-              _this4._router.navigate(['/login']);
+              _this3._router.navigate(['/login']);
             }, function (err) {
-              _this4.errorMsg = err.error;
-              console.log(_this4.errorMsg);
+              _this3.errorMsg = err.error;
+              console.log(_this3.errorMsg);
 
-              _this4._router.navigate(['/register']);
+              _this3._router.navigate(['/register']);
             });
           }
         }
       }, {
         key: "validateUsername",
         value: function validateUsername(control) {
-          var _this5 = this;
+          var _this4 = this;
 
           var q = new Promise(function (resolve, reject) {
             setTimeout(function (res) {
-              _this5._authUserService.validateUsername(control.value).subscribe(function () {
+              _this4._authUserService.validateUsername(control.value).subscribe(function () {
                 resolve(null);
               }, function (err) {
                 if (err.status === 200) resolve(null);else resolve({
@@ -2938,11 +2952,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "validateEmail",
         value: function validateEmail(control) {
-          var _this6 = this;
+          var _this5 = this;
 
           var q = new Promise(function (resolve, reject) {
             setTimeout(function (res) {
-              _this6._authUserService.validateEmail(control.value).subscribe(function () {
+              _this5._authUserService.validateEmail(control.value).subscribe(function () {
                 resolve(null);
               }, function (err) {
                 if (err.status === 200) resolve(null);else resolve({
@@ -3030,6 +3044,73 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       /*! ./register-user.component.css */
       "./src/app/register-user/register-user.component.css"))["default"]]
     })], RegisterUserComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/resolvers/article-list.resolve.ts":
+  /*!***************************************************!*\
+    !*** ./src/app/resolvers/article-list.resolve.ts ***!
+    \***************************************************/
+
+  /*! exports provided: ArticleListResolve */
+
+  /***/
+  function srcAppResolversArticleListResolveTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ArticleListResolve", function () {
+      return ArticleListResolve;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _services_blog_post_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../services/blog-post.service */
+    "./src/app/services/blog-post.service.ts");
+
+    var ArticleListResolve = /*#__PURE__*/function () {
+      function ArticleListResolve(_blogPostService) {
+        _classCallCheck(this, ArticleListResolve);
+
+        this._blogPostService = _blogPostService;
+      }
+
+      _createClass(ArticleListResolve, [{
+        key: "resolve",
+        value: function resolve(route) {
+          return this._blogPostService.getArticles();
+        }
+      }]);
+
+      return ArticleListResolve;
+    }();
+
+    ArticleListResolve.ctorParameters = function () {
+      return [{
+        type: _services_blog_post_service__WEBPACK_IMPORTED_MODULE_2__["BlogPostService"]
+      }];
+    };
+
+    ArticleListResolve = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+      providedIn: 'root'
+    })], ArticleListResolve);
     /***/
   },
 
@@ -3581,7 +3662,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ShowArticleComponent, [{
         key: "like",
         value: function like() {
-          var _this7 = this;
+          var _this6 = this;
 
           this.isLiked = true;
           this.isDisliked = false;
@@ -3592,14 +3673,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (err.status !== 200) {
               console.log(err);
 
-              _this7._router.navigate(['/articles']);
+              _this6._router.navigate(['/articles']);
             }
           });
         }
       }, {
         key: "nonlike",
         value: function nonlike() {
-          var _this8 = this;
+          var _this7 = this;
 
           this.isLiked = false;
 
@@ -3609,14 +3690,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (err.status !== 200) {
               console.log(err.message);
 
-              _this8._router.navigate(['/articles']);
+              _this7._router.navigate(['/articles']);
             }
           });
         }
       }, {
         key: "dislike",
         value: function dislike() {
-          var _this9 = this;
+          var _this8 = this;
 
           this.isDisliked = true;
           this.isLiked = false;
@@ -3627,14 +3708,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (err.status !== 200) {
               console.log(err.message);
 
-              _this9._router.navigate(['/articles']);
+              _this8._router.navigate(['/articles']);
             }
           });
         }
       }, {
         key: "nondislike",
         value: function nondislike() {
-          var _this10 = this;
+          var _this9 = this;
 
           this.isDisliked = false;
 
@@ -3644,7 +3725,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (err.status !== 200) {
               console.log(err.message);
 
-              _this10._router.navigate(['/articles']);
+              _this9._router.navigate(['/articles']);
             }
           });
         }
@@ -3679,11 +3760,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this11 = this;
+          var _this10 = this;
 
           this._route.paramMap.subscribe(function (params) {
             var s = params.get('slug');
-            _this11.slug = s;
+            _this10.slug = s;
           });
         }
       }, {
@@ -3692,24 +3773,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngAfterContentChecked",
         value: function ngAfterContentChecked() {
-          var _this12 = this;
+          var _this11 = this;
 
           this._blogPostService.getArticle(this.slug).subscribe(function (res) {
             if (res === null) {
-              _this12._router.navigate(['**']);
+              _this11._router.navigate(['**']);
             } else {
-              _this12.isAuthor = res.isAuthor;
+              _this11.isAuthor = res.isAuthor;
 
               if (res.isAuthor) {
-                _this12.article = new _models_article_model__WEBPACK_IMPORTED_MODULE_4__["Article"]().deserialize(res.article);
+                _this11.article = new _models_article_model__WEBPACK_IMPORTED_MODULE_4__["Article"]().deserialize(res.article);
               } else {
-                _this12.article = res.article;
+                _this11.article = res.article;
               }
 
-              if (_this12.article.likes.includes(res.userId)) {
-                _this12.isLiked = true;
-              } else if (_this12.article.dislikes.includes(res.userId)) {
-                _this12.isDisliked = true;
+              if (_this11.article.likes.includes(res.userId)) {
+                _this11.isLiked = true;
+              } else if (_this11.article.dislikes.includes(res.userId)) {
+                _this11.isDisliked = true;
               } // for (let i=0;i<7;i++) {
               //   this.views.push(this.article.views[0]);
               // }
@@ -3719,11 +3800,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           }, function (err) {
             if (err.status === 404) {
-              _this12._router.navigate(['**']);
+              _this11._router.navigate(['**']);
             } else if (err.status === 401) {
-              _this12._router.navigate(['/articles']);
+              _this11._router.navigate(['/articles']);
             } else {
-              _this12._router.navigate(['/articles']);
+              _this11._router.navigate(['/articles']);
             }
           });
         }
@@ -3929,7 +4010,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "waveEffect",
         value: function waveEffect(e) {
-          var _this13 = this;
+          var _this12 = this;
 
           var x = e.clientX - e.target.offsetLeft;
           var y = e.clientY - e.target.offsetTop;
@@ -3937,7 +4018,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.spanstyle.top = y + '';
           this.buttonClicked = true;
           setTimeout(function () {
-            _this13.buttonClicked = false;
+            _this12.buttonClicked = false;
           }, 500);
         }
       }, {
