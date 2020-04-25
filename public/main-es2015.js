@@ -2084,6 +2084,7 @@ let BlogPostService = class BlogPostService {
     }
     getArticles() {
         return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles")
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["delay"])(1000))
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     getArticle(slug) {

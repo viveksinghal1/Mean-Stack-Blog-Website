@@ -3366,7 +3366,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getArticles",
         value: function getArticles() {
-          return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
+          return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["delay"])(1000)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
       }, {
         key: "getArticle",
