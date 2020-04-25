@@ -1225,6 +1225,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _wild_card_wild_card_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! ./wild-card/wild-card.component */
     "./src/app/wild-card/wild-card.component.ts");
+    /* harmony import */
+
+
+    var _guards_login_guard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! ./guards/login.guard */
+    "./src/app/guards/login.guard.ts");
 
     var routes = [{
       path: '',
@@ -1243,10 +1249,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       canActivate: [_guards_auth_user_guard__WEBPACK_IMPORTED_MODULE_8__["AuthUserGuard"]]
     }, {
       path: 'login',
-      component: _login_user_login_user_component__WEBPACK_IMPORTED_MODULE_6__["LoginUserComponent"]
+      component: _login_user_login_user_component__WEBPACK_IMPORTED_MODULE_6__["LoginUserComponent"],
+      canActivate: [_guards_login_guard__WEBPACK_IMPORTED_MODULE_10__["LoginGuard"]]
     }, {
       path: 'register',
-      component: _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_7__["RegisterUserComponent"]
+      component: _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_7__["RegisterUserComponent"],
+      canActivate: [_guards_login_guard__WEBPACK_IMPORTED_MODULE_10__["LoginGuard"]]
     }, {
       path: '**',
       component: _wild_card_wild_card_component__WEBPACK_IMPORTED_MODULE_9__["WildCardComponent"]
@@ -1966,6 +1974,88 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     AuthUserGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
       providedIn: 'root'
     })], AuthUserGuard);
+    /***/
+  },
+
+  /***/
+  "./src/app/guards/login.guard.ts":
+  /*!***************************************!*\
+    !*** ./src/app/guards/login.guard.ts ***!
+    \***************************************/
+
+  /*! exports provided: LoginGuard */
+
+  /***/
+  function srcAppGuardsLoginGuardTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "LoginGuard", function () {
+      return LoginGuard;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _services_auth_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../services/auth-user.service */
+    "./src/app/services/auth-user.service.ts");
+
+    var LoginGuard = /*#__PURE__*/function () {
+      function LoginGuard(_authUserService, _router) {
+        _classCallCheck(this, LoginGuard);
+
+        this._authUserService = _authUserService;
+        this._router = _router;
+      }
+
+      _createClass(LoginGuard, [{
+        key: "canActivate",
+        value: function canActivate() {
+          if (!this._authUserService.isLoggedIn()) {
+            return true;
+          } else {
+            this._router.navigate(['/articles']);
+
+            return false;
+          }
+        }
+      }]);
+
+      return LoginGuard;
+    }();
+
+    LoginGuard.ctorParameters = function () {
+      return [{
+        type: _services_auth_user_service__WEBPACK_IMPORTED_MODULE_3__["AuthUserService"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
+      }];
+    };
+
+    LoginGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+      providedIn: 'root'
+    })], LoginGuard);
     /***/
   },
 
@@ -3586,23 +3676,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             var s = params.get('slug');
             _this11.slug = s;
           });
+        }
+      }, {
+        key: "ngAfterContentInit",
+        value: function ngAfterContentInit() {
+          var _this12 = this;
 
           this._blogPostService.getArticle(this.slug).subscribe(function (res) {
             if (res === null) {
-              _this11._router.navigate(['**']);
+              _this12._router.navigate(['**']);
             } else {
-              _this11.isAuthor = res.isAuthor;
+              _this12.isAuthor = res.isAuthor;
 
               if (res.isAuthor) {
-                _this11.article = new _models_article_model__WEBPACK_IMPORTED_MODULE_4__["Article"]().deserialize(res.article);
+                _this12.article = new _models_article_model__WEBPACK_IMPORTED_MODULE_4__["Article"]().deserialize(res.article);
               } else {
-                _this11.article = res.article;
+                _this12.article = res.article;
               }
 
-              if (_this11.article.likes.includes(res.userId)) {
-                _this11.isLiked = true;
-              } else if (_this11.article.dislikes.includes(res.userId)) {
-                _this11.isDisliked = true;
+              if (_this12.article.likes.includes(res.userId)) {
+                _this12.isLiked = true;
+              } else if (_this12.article.dislikes.includes(res.userId)) {
+                _this12.isDisliked = true;
               } // for (let i=0;i<7;i++) {
               //   this.views.push(this.article.views[0]);
               // }
@@ -3612,9 +3707,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           }, function (err) {
             if (err.status === 404) {
-              _this11._router.navigate(['**']);
+              _this12._router.navigate(['**']);
             } else {
-              _this11._router.navigate(['/articles']);
+              _this12._router.navigate(['/articles']);
             }
           });
         }
@@ -3820,7 +3915,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "waveEffect",
         value: function waveEffect(e) {
-          var _this12 = this;
+          var _this13 = this;
 
           var x = e.clientX - e.target.offsetLeft;
           var y = e.clientY - e.target.offsetTop;
@@ -3828,7 +3923,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.spanstyle.top = y + '';
           this.buttonClicked = true;
           setTimeout(function () {
-            _this12.buttonClicked = false;
+            _this13.buttonClicked = false;
           }, 500);
         }
       }, {

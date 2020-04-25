@@ -721,6 +721,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./register-user/register-user.component */ "./src/app/register-user/register-user.component.ts");
 /* harmony import */ var _guards_auth_user_guard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./guards/auth-user.guard */ "./src/app/guards/auth-user.guard.ts");
 /* harmony import */ var _wild_card_wild_card_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./wild-card/wild-card.component */ "./src/app/wild-card/wild-card.component.ts");
+/* harmony import */ var _guards_login_guard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./guards/login.guard */ "./src/app/guards/login.guard.ts");
+
 
 
 
@@ -749,10 +751,10 @@ const routes = [
         canActivate: [_guards_auth_user_guard__WEBPACK_IMPORTED_MODULE_8__["AuthUserGuard"]]
     },
     {
-        path: 'login', component: _login_user_login_user_component__WEBPACK_IMPORTED_MODULE_6__["LoginUserComponent"]
+        path: 'login', component: _login_user_login_user_component__WEBPACK_IMPORTED_MODULE_6__["LoginUserComponent"], canActivate: [_guards_login_guard__WEBPACK_IMPORTED_MODULE_10__["LoginGuard"]]
     },
     {
-        path: 'register', component: _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_7__["RegisterUserComponent"]
+        path: 'register', component: _register_user_register_user_component__WEBPACK_IMPORTED_MODULE_7__["RegisterUserComponent"], canActivate: [_guards_login_guard__WEBPACK_IMPORTED_MODULE_10__["LoginGuard"]]
     },
     {
         path: '**', component: _wild_card_wild_card_component__WEBPACK_IMPORTED_MODULE_9__["WildCardComponent"]
@@ -1206,6 +1208,53 @@ AuthUserGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         providedIn: 'root'
     })
 ], AuthUserGuard);
+
+
+
+/***/ }),
+
+/***/ "./src/app/guards/login.guard.ts":
+/*!***************************************!*\
+  !*** ./src/app/guards/login.guard.ts ***!
+  \***************************************/
+/*! exports provided: LoginGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginGuard", function() { return LoginGuard; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_auth_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/auth-user.service */ "./src/app/services/auth-user.service.ts");
+
+
+
+
+let LoginGuard = class LoginGuard {
+    constructor(_authUserService, _router) {
+        this._authUserService = _authUserService;
+        this._router = _router;
+    }
+    canActivate() {
+        if (!this._authUserService.isLoggedIn()) {
+            return true;
+        }
+        else {
+            this._router.navigate(['/articles']);
+            return false;
+        }
+    }
+};
+LoginGuard.ctorParameters = () => [
+    { type: _services_auth_user_service__WEBPACK_IMPORTED_MODULE_3__["AuthUserService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+];
+LoginGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], LoginGuard);
 
 
 
@@ -2233,6 +2282,8 @@ let ShowArticleComponent = class ShowArticleComponent {
             let s = params.get('slug');
             this.slug = s;
         });
+    }
+    ngAfterContentInit() {
         this._blogPostService.getArticle(this.slug).subscribe(res => {
             if (res === null) {
                 this._router.navigate(['**']);
