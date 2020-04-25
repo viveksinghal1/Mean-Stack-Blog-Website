@@ -3678,8 +3678,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
         }
       }, {
-        key: "ngAfterContentInit",
-        value: function ngAfterContentInit() {
+        key: "ngAfterViewInit",
+        value: function ngAfterViewInit() {}
+      }, {
+        key: "ngAfterContentChecked",
+        value: function ngAfterContentChecked() {
           var _this12 = this;
 
           this._blogPostService.getArticle(this.slug).subscribe(function (res) {

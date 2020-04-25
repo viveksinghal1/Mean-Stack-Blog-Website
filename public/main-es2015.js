@@ -2283,7 +2283,9 @@ let ShowArticleComponent = class ShowArticleComponent {
             this.slug = s;
         });
     }
-    ngAfterContentInit() {
+    ngAfterViewInit() {
+    }
+    ngAfterContentChecked() {
         this._blogPostService.getArticle(this.slug).subscribe(res => {
             if (res === null) {
                 this._router.navigate(['**']);
