@@ -3711,6 +3711,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }, function (err) {
             if (err.status === 404) {
               _this12._router.navigate(['**']);
+            } else if (err.status === 401) {
+              _this12._router.navigate(['/articles']);
             } else {
               _this12._router.navigate(['/articles']);
             }

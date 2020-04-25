@@ -2314,6 +2314,9 @@ let ShowArticleComponent = class ShowArticleComponent {
             if (err.status === 404) {
                 this._router.navigate(['**']);
             }
+            else if (err.status === 401) {
+                this._router.navigate(['/articles']);
+            }
             else {
                 this._router.navigate(['/articles']);
             }
