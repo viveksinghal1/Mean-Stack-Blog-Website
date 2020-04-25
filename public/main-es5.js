@@ -1544,7 +1544,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "ngOnInit",
-        value: function ngOnInit() {}
+        value: function ngOnInit() {
+          console.log("component initialised");
+        }
       }, {
         key: "ngAfterContentChecked",
         value: function ngAfterContentChecked() {}
@@ -1555,6 +1557,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           this._blogPostService.getArticles().subscribe(function (items) {
             _this.allArticles = items;
+            console.log("data received");
           }, function (err) {
             return _this.errorMsg = err.error;
           });
