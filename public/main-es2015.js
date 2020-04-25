@@ -938,6 +938,9 @@ let ArticlesListComponent = class ArticlesListComponent {
         this._router.navigate(['/articles', slug]);
     }
     ngOnInit() {
+    }
+    ngAfterContentChecked() { }
+    ngAfterViewInit() {
         this._blogPostService.getArticles().subscribe(items => {
             this.allArticles = items;
         }, err => this.errorMsg = err.error);

@@ -1544,7 +1544,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "ngOnInit",
-        value: function ngOnInit() {
+        value: function ngOnInit() {}
+      }, {
+        key: "ngAfterContentChecked",
+        value: function ngAfterContentChecked() {}
+      }, {
+        key: "ngAfterViewInit",
+        value: function ngAfterViewInit() {
           var _this = this;
 
           this._blogPostService.getArticles().subscribe(function (items) {
