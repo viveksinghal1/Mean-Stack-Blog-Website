@@ -1546,14 +1546,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngOnInit",
         value: function ngOnInit() {
-          console.log("component initialised"); // this._blogPostService.getArticles().subscribe(
-          //   items => {
-          //     this.allArticles = items;
-          //     console.log("data received");
-          //   },
-          //   err => this.errorMsg = err.error 
-          // );
-          // this.allArticles = this._route.snapshot.data.allArticles;
+          var _this = this;
+
+          console.log("component initialised");
+
+          this._blogPostService.getArticles().subscribe(function (items) {
+            _this.allArticles = items;
+            console.log("data received");
+          }, function (err) {
+            return _this.errorMsg = err.error;
+          }); // this.allArticles = this._route.snapshot.data.allArticles;
+
         }
       }, {
         key: "ngAfterContentChecked",
@@ -1749,7 +1752,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmit",
         value: function onSubmit(form) {
-          var _this = this;
+          var _this2 = this;
 
           // this.editorContent = this.editorForm.get("editor").value;
           // console.log(this.editorForm.get("editor").value);
@@ -1763,16 +1766,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             // console.log(this.editorForm.valid);
 
             this._blogPostService.postArticle(this.editorForm.value).subscribe(function (res) {
-              console.log("success"), _this.success = "Successfully Uploaded";
+              console.log("success"), _this2.success = "Successfully Uploaded";
 
-              _this._router.navigate(['/articles', res.slug]);
+              _this2._router.navigate(['/articles', res.slug]);
             }, function (err) {
               console.log(err);
-              _this.error = err.error;
+              _this2.error = err.error;
 
-              _this.editorForm.markAsPristine();
+              _this2.editorForm.markAsPristine();
 
-              _this.editorForm.markAsUntouched();
+              _this2.editorForm.markAsUntouched();
             });
           } // else {
           //   console.log('submit nhi ho paya');
@@ -2470,7 +2473,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "login",
         value: function login() {
-          var _this2 = this;
+          var _this3 = this;
 
           this.submitted = true;
 
@@ -2478,18 +2481,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.allFieldsValid = true;
 
             this._authUserService.loginUser(this.form.value).subscribe(function (res) {
-              _this2.success = "logged in";
+              _this3.success = "logged in";
               var expiresAt = moment__WEBPACK_IMPORTED_MODULE_4__().add(res.expiresIn, 'second');
               localStorage.setItem('token', res.idToken);
               localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
               localStorage.setItem('username', res.username);
 
-              _this2._router.navigate(['/articles']);
+              _this3._router.navigate(['/articles']);
             }, function (err) {
-              _this2.error = err.error;
+              _this3.error = err.error;
               console.log(err);
 
-              _this2.reset();
+              _this3.reset();
             });
           }
         }
@@ -2897,7 +2900,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "onSubmitThree",
         value: function onSubmitThree(form) {
-          var _this3 = this;
+          var _this4 = this;
 
           this.submitted3 = true;
 
@@ -2907,28 +2910,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.progress(this.thirdProgress, this.thirdProgress);
 
             this._authUserService.registerUser(this.regisForm3.value).subscribe(function (res) {
-              _this3.successMsg = "Successfully Registered";
+              _this4.successMsg = "Successfully Registered";
               var expiresAt = moment__WEBPACK_IMPORTED_MODULE_7__().add(res.expiresIn, 'second'); // localStorage.setItem('token', res.idToken);
               // localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
               // localStorage.setItem('username', res.username);
 
-              _this3._router.navigate(['/login']);
+              _this4._router.navigate(['/login']);
             }, function (err) {
-              _this3.errorMsg = err.error;
-              console.log(_this3.errorMsg);
+              _this4.errorMsg = err.error;
+              console.log(_this4.errorMsg);
 
-              _this3._router.navigate(['/register']);
+              _this4._router.navigate(['/register']);
             });
           }
         }
       }, {
         key: "validateUsername",
         value: function validateUsername(control) {
-          var _this4 = this;
+          var _this5 = this;
 
           var q = new Promise(function (resolve, reject) {
             setTimeout(function (res) {
-              _this4._authUserService.validateUsername(control.value).subscribe(function () {
+              _this5._authUserService.validateUsername(control.value).subscribe(function () {
                 resolve(null);
               }, function (err) {
                 if (err.status === 200) resolve(null);else resolve({
@@ -2942,11 +2945,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "validateEmail",
         value: function validateEmail(control) {
-          var _this5 = this;
+          var _this6 = this;
 
           var q = new Promise(function (resolve, reject) {
             setTimeout(function (res) {
-              _this5._authUserService.validateEmail(control.value).subscribe(function () {
+              _this6._authUserService.validateEmail(control.value).subscribe(function () {
                 resolve(null);
               }, function (err) {
                 if (err.status === 200) resolve(null);else resolve({
@@ -3585,7 +3588,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ShowArticleComponent, [{
         key: "like",
         value: function like() {
-          var _this6 = this;
+          var _this7 = this;
 
           this.isLiked = true;
           this.isDisliked = false;
@@ -3596,36 +3599,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (err.status !== 200) {
               console.log(err);
 
-              _this6._router.navigate(['/articles']);
+              _this7._router.navigate(['/articles']);
             }
           });
         }
       }, {
         key: "nonlike",
         value: function nonlike() {
-          var _this7 = this;
+          var _this8 = this;
 
           this.isLiked = false;
 
           this._blogPostService.nonlikeArticle(this.slug).subscribe(function (res) {
-            return console.log(res);
-          }, function (err) {
-            if (err.status !== 200) {
-              console.log(err.message);
-
-              _this7._router.navigate(['/articles']);
-            }
-          });
-        }
-      }, {
-        key: "dislike",
-        value: function dislike() {
-          var _this8 = this;
-
-          this.isDisliked = true;
-          this.isLiked = false;
-
-          this._blogPostService.dislikeArticle(this.slug).subscribe(function (res) {
             return console.log(res);
           }, function (err) {
             if (err.status !== 200) {
@@ -3636,9 +3621,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
         }
       }, {
+        key: "dislike",
+        value: function dislike() {
+          var _this9 = this;
+
+          this.isDisliked = true;
+          this.isLiked = false;
+
+          this._blogPostService.dislikeArticle(this.slug).subscribe(function (res) {
+            return console.log(res);
+          }, function (err) {
+            if (err.status !== 200) {
+              console.log(err.message);
+
+              _this9._router.navigate(['/articles']);
+            }
+          });
+        }
+      }, {
         key: "nondislike",
         value: function nondislike() {
-          var _this9 = this;
+          var _this10 = this;
 
           this.isDisliked = false;
 
@@ -3648,7 +3651,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (err.status !== 200) {
               console.log(err.message);
 
-              _this9._router.navigate(['/articles']);
+              _this10._router.navigate(['/articles']);
             }
           });
         }
@@ -3683,11 +3686,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this10 = this;
+          var _this11 = this;
 
           this._route.paramMap.subscribe(function (params) {
             var s = params.get('slug');
-            _this10.slug = s;
+            _this11.slug = s;
           });
         }
       }, {
@@ -3696,24 +3699,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngAfterContentChecked",
         value: function ngAfterContentChecked() {
-          var _this11 = this;
+          var _this12 = this;
 
           this._blogPostService.getArticle(this.slug).subscribe(function (res) {
             if (res === null) {
-              _this11._router.navigate(['**']);
+              _this12._router.navigate(['**']);
             } else {
-              _this11.isAuthor = res.isAuthor;
+              _this12.isAuthor = res.isAuthor;
 
               if (res.isAuthor) {
-                _this11.article = new _models_article_model__WEBPACK_IMPORTED_MODULE_4__["Article"]().deserialize(res.article);
+                _this12.article = new _models_article_model__WEBPACK_IMPORTED_MODULE_4__["Article"]().deserialize(res.article);
               } else {
-                _this11.article = res.article;
+                _this12.article = res.article;
               }
 
-              if (_this11.article.likes.includes(res.userId)) {
-                _this11.isLiked = true;
-              } else if (_this11.article.dislikes.includes(res.userId)) {
-                _this11.isDisliked = true;
+              if (_this12.article.likes.includes(res.userId)) {
+                _this12.isLiked = true;
+              } else if (_this12.article.dislikes.includes(res.userId)) {
+                _this12.isDisliked = true;
               } // for (let i=0;i<7;i++) {
               //   this.views.push(this.article.views[0]);
               // }
@@ -3723,11 +3726,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           }, function (err) {
             if (err.status === 404) {
-              _this11._router.navigate(['**']);
+              _this12._router.navigate(['**']);
             } else if (err.status === 401) {
-              _this11._router.navigate(['/articles']);
+              _this12._router.navigate(['/articles']);
             } else {
-              _this11._router.navigate(['/articles']);
+              _this12._router.navigate(['/articles']);
             }
           });
         }
@@ -3933,7 +3936,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "waveEffect",
         value: function waveEffect(e) {
-          var _this12 = this;
+          var _this13 = this;
 
           var x = e.clientX - e.target.offsetLeft;
           var y = e.clientY - e.target.offsetTop;
@@ -3941,7 +3944,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.spanstyle.top = y + '';
           this.buttonClicked = true;
           setTimeout(function () {
-            _this12.buttonClicked = false;
+            _this13.buttonClicked = false;
           }, 500);
         }
       }, {
