@@ -722,8 +722,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _guards_auth_user_guard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./guards/auth-user.guard */ "./src/app/guards/auth-user.guard.ts");
 /* harmony import */ var _wild_card_wild_card_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./wild-card/wild-card.component */ "./src/app/wild-card/wild-card.component.ts");
 /* harmony import */ var _guards_login_guard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./guards/login.guard */ "./src/app/guards/login.guard.ts");
-/* harmony import */ var _resolvers_article_list_resolve__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./resolvers/article-list.resolve */ "./src/app/resolvers/article-list.resolve.ts");
-
 
 
 
@@ -741,10 +739,7 @@ const routes = [
     },
     {
         path: 'articles',
-        component: _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_5__["HomePageComponent"],
-        resolve: {
-            allArticles: _resolvers_article_list_resolve__WEBPACK_IMPORTED_MODULE_11__["ArticleListResolve"]
-        }
+        component: _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_5__["HomePageComponent"]
     },
     {
         path: 'articles/new',
@@ -946,14 +941,11 @@ let ArticlesListComponent = class ArticlesListComponent {
     }
     ngOnInit() {
         console.log("component initialised");
-        // this._blogPostService.getArticles().subscribe(
-        //   items => {
-        //     this.allArticles = items;
-        //     console.log("data received");
-        //   },
-        //   err => this.errorMsg = err.error 
-        // );
-        this.allArticles = this._route.snapshot.data.allArticles;
+        this._blogPostService.getArticles().subscribe(items => {
+            this.allArticles = items;
+            console.log("data received");
+        }, err => this.errorMsg = err.error);
+        // this.allArticles = this._route.snapshot.data.allArticles;
     }
     ngAfterContentChecked() { }
     ngAfterViewInit() { }
@@ -1904,43 +1896,6 @@ RegisterUserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./register-user.component.css */ "./src/app/register-user/register-user.component.css")).default]
     })
 ], RegisterUserComponent);
-
-
-
-/***/ }),
-
-/***/ "./src/app/resolvers/article-list.resolve.ts":
-/*!***************************************************!*\
-  !*** ./src/app/resolvers/article-list.resolve.ts ***!
-  \***************************************************/
-/*! exports provided: ArticleListResolve */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArticleListResolve", function() { return ArticleListResolve; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _services_blog_post_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/blog-post.service */ "./src/app/services/blog-post.service.ts");
-
-
-
-let ArticleListResolve = class ArticleListResolve {
-    constructor(_blogPostService) {
-        this._blogPostService = _blogPostService;
-    }
-    resolve(route) {
-        return this._blogPostService.getArticles();
-    }
-};
-ArticleListResolve.ctorParameters = () => [
-    { type: _services_blog_post_service__WEBPACK_IMPORTED_MODULE_2__["BlogPostService"] }
-];
-ArticleListResolve = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], ArticleListResolve);
 
 
 
