@@ -2037,32 +2037,32 @@ let BlogPostService = class BlogPostService {
     postArticle(article) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append("Content-Type", "application/json");
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles", article, { headers })
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless", article, { headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     getArticles() {
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles")
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless")
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["delay"])(1000))
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     getArticle(slug) {
-        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug)
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     likeArticle(slug) {
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug + "/like", {})
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug + "/like", {})
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     nonlikeArticle(slug) {
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug + "/nonlike", {})
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug + "/nonlike", {})
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     dislikeArticle(slug) {
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug + "/dislike", {})
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug + "/dislike", {})
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     nondislikeArticle(slug) {
-        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug + "/nondislike", {})
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug + "/nondislike", {})
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     }
     errorHandler(error) {

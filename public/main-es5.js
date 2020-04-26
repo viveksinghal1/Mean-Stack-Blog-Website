@@ -3282,39 +3282,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function postArticle(article) {
           var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
           headers.append("Content-Type", "application/json");
-          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles", article, {
+          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless", article, {
             headers: headers
           }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
       }, {
         key: "getArticles",
         value: function getArticles() {
-          return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["delay"])(1000)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
+          return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["delay"])(1000)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
       }, {
         key: "getArticle",
         value: function getArticle(slug) {
-          return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
+          return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
       }, {
         key: "likeArticle",
         value: function likeArticle(slug) {
-          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug + "/like", {}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
+          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug + "/like", {}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
       }, {
         key: "nonlikeArticle",
         value: function nonlikeArticle(slug) {
-          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug + "/nonlike", {}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
+          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug + "/nonlike", {}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
       }, {
         key: "dislikeArticle",
         value: function dislikeArticle(slug) {
-          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug + "/dislike", {}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
+          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug + "/dislike", {}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
       }, {
         key: "nondislikeArticle",
         value: function nondislikeArticle(slug) {
-          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articles/" + slug + "/nondislike", {}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
+          return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].host + "/articless/" + slug + "/nondislike", {}).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
       }, {
         key: "errorHandler",
