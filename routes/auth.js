@@ -142,7 +142,7 @@ router.post("/login", async function(req, res){
     }
 });
 
-router.get('/users/checkusername', async function(req, res){
+router.post('/users/checkusername', async function(req, res){
     try {
         let user = await User.findOne({username: req.query.username});
         if (user===null) {
@@ -155,7 +155,7 @@ router.get('/users/checkusername', async function(req, res){
     }
 });
 
-router.get('/users/checkemail', async function(req, res){
+router.post('/users/checkemail', async function(req, res){
     try {
         let user = await User.findOne({email: req.query.email});
         if (user===null) {
