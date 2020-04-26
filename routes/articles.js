@@ -8,7 +8,9 @@ const User = require("../models/user");
 router.get('/', async function(req, res){
     try {
         let allArticles = await (await Article.find({})).reverse();
-        res.status(200).send(allArticles);
+        res.status(200).json({
+            allArticles: allArticles
+        });
     } catch(err) {
         console.log(err);
         res.status(500).send("Server Error");
