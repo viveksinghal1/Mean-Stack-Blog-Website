@@ -941,10 +941,13 @@ let ArticlesListComponent = class ArticlesListComponent {
     }
     ngOnInit() {
         console.log("component initialised");
-        this._blogPostService.getArticles().subscribe(items => {
-            this.allArticles = items;
-            console.log("data received");
-        }, err => this.errorMsg = err.error);
+        // this._blogPostService.getArticles().subscribe(
+        //   items => {
+        //     this.allArticles = items;
+        //     console.log("data received");
+        //   },
+        //   err => this.errorMsg = err.error 
+        // );
         // this.allArticles = this._route.snapshot.data.allArticles;
     }
     ngAfterContentChecked() { }
