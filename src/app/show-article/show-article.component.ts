@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, AfterContentInit, AfterContentChecked } from '@angular/core';
 import { BlogPostService } from '../services/blog-post.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Article } from '../models/article.model';
@@ -20,6 +20,7 @@ export class ShowArticleComponent implements OnInit {
   isLiked: boolean = false;
   isDisliked: boolean = false;
   slug: string;
+  link: string;
   // views: User[] = [];
   
   like() {
@@ -107,41 +108,37 @@ export class ShowArticleComponent implements OnInit {
     this._route.paramMap.subscribe((params: ParamMap) => {
       let s = params.get('slug');
       this.slug = s;
-    });
-
-    this._blogPostService.getArticle(this.slug).subscribe(
-      res => {
-        if (res===null) {
-          this._router.navigate(['**']);
-        } else {
-          this.isAuthor = res.isAuthor;
-          if (res.isAuthor) {
-            this.article = new Article().deserialize(res.article);
+      
+      this._blogPostService.getArticle(this.slug).subscribe(
+        res => {
+          if (res===null) {
+            this._router.navigate(['**']);
           } else {
-            this.article = res.article;
+            this.isAuthor = res.isAuthor;
+            if (res.isAuthor) {
+              this.article = new Article().deserialize(res.article);
+            } else {
+              this.article = res.article;
+            }
+            if (this.article.likes.includes(res.userId)) {
+              this.isLiked = true;
+            } else if (this.article.dislikes.includes(res.userId)) {
+              this.isDisliked = true;
+            }
           }
-          if (this.article.likes.includes(res.userId)) {
-            this.isLiked = true;
-          } else if (this.article.dislikes.includes(res.userId)) {
-            this.isDisliked = true;
+        },
+        err => {
+          if (err.status===404) {
+            this._router.navigate(['**']);
+          } else {
+            this._router.navigate(['/articles']);
           }
-
-          // for (let i=0;i<7;i++) {
-          //   this.views.push(this.article.views[0]);
-          // }
-
-          // console.log(this.article.views);
-          // console.log(res);
         }
-      },
-      err => {
-        if (err.status===404) {
-          this._router.navigate(['**']);
-        } else {
-        this._router.navigate(['/articles']);
-        }
-      }
-    )
+      )
+
+      // this.link = "https://api.whatsapp.com/send?text="+"https://localhost:4200/articles/"+this.slug;
+      this.link = "https://api.whatsapp.com/send?text="+"https://intense-bastion-49490.herokuapp.com/articles/"+this.slug;
+    });
   }
 
 }

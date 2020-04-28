@@ -1,21 +1,23 @@
 <div class="row">
     <div class="col-12 mt-3" *ngFor="let article of allArticles">
-        <div class="post-preview">
-            <a (click)="getArticle(article.slug)" style="cursor: pointer;">
-                <h2 class="post-title">{{article.title}}</h2>
-                <h3 class="post-subtitle" *ngIf="article.caption">{{article.caption.toLowerCase()}}</h3>
-            </a>
-            <p class="post-meta"><small>posted by</small>&nbsp;<a routerLink="/articles">
-                {{article.author.username}}</a>  ● <small class="text-muted">{{article.timeCreated}}</small> 
-                <span class="float-right">
-                    <small class="text-muted"><i class="fa fa-eye" aria-hidden="true"></i>
-                        {{article.views.length}}</small>
-                    <small class="ml-2 text-muted"><i class="fa fa-heart-o" aria-hidden="true"></i>
-                           {{article.likes.length}}</small>
-                    <small class="ml-2 text-muted"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                            {{article.dislikes.length}}</small>
-                </span>
-            </p>
+        <div class="animated fadeInUp">
+            <div class="post-preview">
+                <a (click)="getArticle(article.slug)" style="cursor: pointer;">
+                    <h2 class="post-title">{{article.title}}</h2>
+                    <h3 class="post-subtitle" *ngIf="article.caption">{{article.caption.toLowerCase()}}</h3>
+                </a>
+                <p class="post-meta"><small>posted by</small>&nbsp;<a routerLink="/articles">
+                    {{article.author.username}}</a>  ● <small class="text-muted">{{article.timeCreated}}</small> 
+                    <span class="float-right">
+                        <small class="text-muted"><i class="fa fa-eye" aria-hidden="true"></i>
+                            {{article.views.length}}</small>
+                        <small class="ml-2 text-muted"><i class="fa fa-heart-o" aria-hidden="true"></i>
+                               {{article.likes.length}}</small>
+                        <small class="ml-2 text-muted"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                {{article.dislikes.length}}</small>
+                    </span>
+                </p>
+            </div>
         </div>
     </div>
     <!-- <div class="col-12">

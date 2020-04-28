@@ -204,9 +204,11 @@ export class RegisterUserComponent implements OnInit {
   validateUsername(control: FormControl) {
     const q = new Promise((resolve, reject) => {
       setTimeout((res) => {
-        this._authUserService.validateUsername(control.value).subscribe(() => {
+        this._authUserService.validateUsername(control.value).subscribe((res) => {
+          // console.log(res);
           resolve(null);
         }, (err) => { 
+          // console.log(err);
           if (err.status===200)
             resolve(null);
           else

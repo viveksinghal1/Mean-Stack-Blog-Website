@@ -97,7 +97,7 @@ export class BlogEditorComponent implements OnInit, AfterViewInit {
           res => {
             console.log("success"),
             this.success = "Successfully Uploaded";
-            this._router.navigate(['/articles']);
+            this._router.navigate(['/articles', res.slug]);
           },
           err => {
             console.log(err);

@@ -6,7 +6,7 @@
                     <h1>{{article.title}}</h1>
                     <h2 class="subheading">{{article.caption.toLowerCase()}}
                     </h2><span class="meta">Posted by&nbsp;<a
-                            href="#">{{article.author.username}},</a>&nbsp;on
+                            [routerLink]="['/articles', article.slug]">{{article.author.username}},</a>&nbsp;on
                         {{article.timeCreated}}</span>
                 </div>
             </div>
@@ -40,6 +40,8 @@
                         class="cstmbtn1 mx-1 border-0 bg-white text-secondary">dislike</button>
                     <button (click)="nondislike()" *ngIf="isDisliked"
                         class="cstmbtn2 mx-1 border-0 bg-white text-danger">disliked!</button>
+                    <a class="ml-1" [href]="link" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                    
                     <!-- <small class="text-muted">&ensp;{{article.dislikes.length}}</small> -->
                 </div>
                 <div  *ngIf="isAuthor" class="d-flex">
@@ -60,6 +62,8 @@
                             aria-hidden="true"></i>
                         <small
                             class="text-muted views">&ensp;{{article.dislikes.length}}</small></button>
+                    <!-- <a href="whatsapp://send" data-action="share/whatsapp/share" target="_blank">WA</a> -->
+                    <a class="ml-1" [href]="link" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
                 </div>
 
                 <div #viewsSheet class="bottom-sheet">

@@ -136,6 +136,12 @@ header.masthead {
   10px 14px 7px rgba(0, 0, 0, 0.05);
 }
 
+@media (max-width: 767.98px) {
+  .quill-container {
+    padding: 1rem 0.4rem 3rem 0.4rem;
+  }
+}
+
 /* .button2::before {
   content: '\f004';
   font-family: FontAwesome;
@@ -235,4 +241,10 @@ header.masthead {
 
 .bottom-sheet .row:nth-child(2) .col-12:hover .media .media-body strong {
   color: white;
+}
+
+.fa.fa-whatsapp {
+  color: green;
+  font-weight: 600;
+  font-size: 1.2rem;
 }

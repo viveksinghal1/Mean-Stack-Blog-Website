@@ -7,6 +7,8 @@ import { LoginUserComponent } from './login-user/login-user.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { AuthUserGuard } from './guards/auth-user.guard';
 import { WildCardComponent } from './wild-card/wild-card.component';
+import { LoginGuard } from './guards/login.guard';
+import { ArticleListResolve } from './resolvers/article-list.resolve';
 
 
 const routes: Routes = [
@@ -14,7 +16,8 @@ const routes: Routes = [
     path: '', redirectTo: '/articles', pathMatch: 'full'
   },
   {
-    path: 'articles', component: HomePageComponent
+    path: 'articles',
+    component: HomePageComponent
   },
   {
     path: 'articles/new',
@@ -27,10 +30,10 @@ const routes: Routes = [
      canActivate: [AuthUserGuard]
   },
   {
-    path: 'login', component: LoginUserComponent
+    path: 'login', component: LoginUserComponent, canActivate: [LoginGuard]
   },
   {
-    path: 'register', component: RegisterUserComponent
+    path: 'register', component: RegisterUserComponent, canActivate: [LoginGuard]
   },
   {
     path: '**', component: WildCardComponent

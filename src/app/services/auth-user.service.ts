@@ -32,13 +32,13 @@ export class AuthUserService {
 
   }
 
-  validateUsername(username): Observable<any> {
-    return this.http.get<any>(environment.host+"/users/checkusername/?username="+username)
+  validateUsername(username) {
+    return this.http.post<any>(environment.host+"/users/checkusername/?username="+username, {})
     .pipe(catchError(this.errorHandler));
   }
 
-  validateEmail(email): Observable<any> {
-    return this.http.get<any>(environment.host+"/users/checkemail/?email="+email)
+  validateEmail(email) {
+    return this.http.post<any>(environment.host+"/users/checkemail/?email="+email, {})
     .pipe(catchError(this.errorHandler));
   }
 

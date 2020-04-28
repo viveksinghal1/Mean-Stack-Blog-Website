@@ -13,11 +13,12 @@ export class DataService {
               "SRM Institute of Science and Technology, Kattankulathur, Tamil Nadu",
               "Amity University, Noida, UP",
               "BITS, Pilani, Rajasthan",
-              "Jaypee Institute of Information Technology, Noida, UP"
+              "Jaypee Institute of Information Technology, Noida, UP",
+              "Other"
               ];
   private courses = ["BE/BTech", "BBA", "MBA", "MTech", "BA", "MA", "BSc", "MSc", "Other"];
 
-  private passingYears = [];
+  private passingYears = ["<2000"];
   private jobSince = ["<2010"];
 
   private categories = ["Data Science", "Web Development", "Art", "Science and Technology", "Job and Interview", "Gaming", "Business", "Economy", "Politics", "Culture",
@@ -34,7 +35,7 @@ export class DataService {
   }
 
   getPassingYears() {
-    for (let i=1990;i<2025;i++) {
+    for (let i=2000;i<2025;i++) {
       let s = i.toString();
       this.passingYears.unshift(s);
     }

@@ -10,6 +10,12 @@
     text-align: center;
 }
 
+@media (max-width: 767.98px) {
+    .progressbar li {
+        font-size: 0.85rem;
+    }
+}
+
 .progressbar li:nth-child(1)::before {
     content: '\f007';
 }

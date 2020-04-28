@@ -24,9 +24,10 @@
     color: #0085a1;
   }
   .post-preview > a > .post-title {
-    font-size: 30px;
+    font-size: 36px;
     margin-top: 30px;
     margin-bottom: 10px;
+    font-weight: 800;
   }
   .post-preview > a > .post-subtitle {
     font-weight: 300;
@@ -49,12 +50,54 @@
     text-decoration: underline;
     color: #0085a1;
   }
-  @media only screen and (min-width: 992px) {
+
+  @media (max-width: 767.98px) {
     .post-preview > a > .post-title {
-      font-size: 2rem;
+      color: #0085a1;
     }
-    .post-preview > a > .post-subtitle {
-      font-size: 1.3rem;
+  }
+
+  @-webkit-keyframes fadeInUp {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
     }
-}
+  
+    to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  .fadeInUp {
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+  }
+
+  .animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-delay: 0.25s;
+    animation-delay: 0.25s;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+  }
 

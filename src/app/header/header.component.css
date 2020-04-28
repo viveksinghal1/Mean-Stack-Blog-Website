@@ -64,9 +64,19 @@
 }
 
 li.nav-item a.nav-link {
-    color: rgba(360, 360, 360, 0.7);
+    color: rgba(360, 360, 360, 0.85);
 }
 
 li.nav-item a.nav-link:hover {
-    color: rgba(360, 360, 360, 0.85);
+    color: rgba(360, 360, 360, 1);
+}
+
+li.nav-item > a.btn-green {
+    background-color: rgb(0, 139, 0);
+    color: rgba(360, 360, 360, 0.9);
+}
+
+li.nav-item > a.btn-blue {
+    background-color: #1b5f9e;
+    color: rgba(360, 360, 360, 0.9);
 }
