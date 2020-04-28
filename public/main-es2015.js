@@ -2103,10 +2103,11 @@ let DataService = class DataService {
             "SRM Institute of Science and Technology, Kattankulathur, Tamil Nadu",
             "Amity University, Noida, UP",
             "BITS, Pilani, Rajasthan",
-            "Jaypee Institute of Information Technology, Noida, UP"
+            "Jaypee Institute of Information Technology, Noida, UP",
+            "Other"
         ];
         this.courses = ["BE/BTech", "BBA", "MBA", "MTech", "BA", "MA", "BSc", "MSc", "Other"];
-        this.passingYears = [];
+        this.passingYears = ["<2000"];
         this.jobSince = ["<2010"];
         this.categories = ["Data Science", "Web Development", "Art", "Science and Technology", "Job and Interview", "Gaming", "Business", "Economy", "Politics", "Culture",
             "Travel", "Entertainment", "Philosophy", "Self-Improvement", "Others"];
@@ -2118,7 +2119,7 @@ let DataService = class DataService {
         return this.courses;
     }
     getPassingYears() {
-        for (let i = 1990; i < 2025; i++) {
+        for (let i = 2000; i < 2025; i++) {
             let s = i.toString();
             this.passingYears.unshift(s);
         }

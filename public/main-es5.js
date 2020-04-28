@@ -3377,9 +3377,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       function DataService() {
         _classCallCheck(this, DataService);
 
-        this.colleges = ["GLA University, Mathura, UP", "VIT, Vellore, Tamil Nadu", "Chandigarh University, Ajitgarh, Punjab", "Lovely Professional University, Phagwara, Punjab", "SRM Institute of Science and Technology, Kattankulathur, Tamil Nadu", "Amity University, Noida, UP", "BITS, Pilani, Rajasthan", "Jaypee Institute of Information Technology, Noida, UP"];
+        this.colleges = ["GLA University, Mathura, UP", "VIT, Vellore, Tamil Nadu", "Chandigarh University, Ajitgarh, Punjab", "Lovely Professional University, Phagwara, Punjab", "SRM Institute of Science and Technology, Kattankulathur, Tamil Nadu", "Amity University, Noida, UP", "BITS, Pilani, Rajasthan", "Jaypee Institute of Information Technology, Noida, UP", "Other"];
         this.courses = ["BE/BTech", "BBA", "MBA", "MTech", "BA", "MA", "BSc", "MSc", "Other"];
-        this.passingYears = [];
+        this.passingYears = ["<2000"];
         this.jobSince = ["<2010"];
         this.categories = ["Data Science", "Web Development", "Art", "Science and Technology", "Job and Interview", "Gaming", "Business", "Economy", "Politics", "Culture", "Travel", "Entertainment", "Philosophy", "Self-Improvement", "Others"];
       }
@@ -3397,7 +3397,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getPassingYears",
         value: function getPassingYears() {
-          for (var i = 1990; i < 2025; i++) {
+          for (var i = 2000; i < 2025; i++) {
             var s = i.toString();
             this.passingYears.unshift(s);
           }
